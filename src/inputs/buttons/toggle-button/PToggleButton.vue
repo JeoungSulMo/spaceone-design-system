@@ -14,7 +14,9 @@
 <script lang="ts">
 import { ToggleButton } from 'vue-js-toggle-button';
 
-import { computed, reactive, toRefs } from '@vue/composition-api';
+import {
+    defineComponent, computed, reactive, toRefs,
+} from '@vue/composition-api';
 import { TOGGLE_BUTTON_THEME } from '@/inputs/buttons/toggle-button/config';
 import { ToggleButtonProps } from '@/inputs/buttons/toggle-button/type';
 import color from '@/styles/colors';
@@ -24,7 +26,13 @@ import color from '@/styles/colors';
  * https://www.npmjs.com/package/vue-js-toggle-button
  */
 
-export default {
+interface Props {
+    sync: boolean;
+    value: boolean;
+    theme: string;
+}
+
+export default defineComponent<Props>({
     name: 'PToggleButton',
     components: {
         ToggleButton,
@@ -41,7 +49,7 @@ export default {
         theme: {
             type: String,
             default: TOGGLE_BUTTON_THEME.secondary,
-            validator(theme) {
+            validator(theme: string) {
                 return Object.keys(TOGGLE_BUTTON_THEME).includes(theme);
             },
         },
@@ -63,5 +71,5 @@ export default {
             ...toRefs(state),
         };
     },
-};
+});
 </script>

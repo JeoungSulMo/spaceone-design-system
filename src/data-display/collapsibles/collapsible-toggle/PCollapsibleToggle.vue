@@ -33,9 +33,14 @@ import {
 } from '@/data-display/collapsibles/collapsible-toggle/type';
 import PToggleButton from '@/inputs/buttons/toggle-button/PToggleButton.vue';
 
-export default defineComponent({
+interface Props {
+    isCollapsed: boolean;
+    type: COLLAPSIBLE_TOGGLE_TYPE;
+}
+
+export default defineComponent<Props>({
     name: 'PCollapsibleToggle',
-    components: { PToggleButton, PI } as any,
+    components: { PToggleButton, PI },
     model: {
         prop: 'isCollapsed',
         event: 'update:isCollapsed',
