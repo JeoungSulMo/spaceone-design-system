@@ -25,6 +25,7 @@ export const Template = (args, { argTypes }) => ({
         <p-collapsible-toggle
             v-model="proxyIsCollapsed"
             @update:isCollapsed="onUpdateIsCollapsed"
+            :type="type"
         >
             <div v-if="defaultSlot" v-html="defaultSlot"/>
         </p-collapsible-toggle>
