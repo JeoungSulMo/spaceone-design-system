@@ -38,8 +38,8 @@ export const argTypes: ArgTypes = {
             type: 'boolean',
         },
     },
-    type: {
-        name: 'type',
+    toggleType: {
+        name: 'toggleType',
         type: { name: 'string' },
         description: 'type of toggle button.',
         defaultValue: COLLAPSIBLE_TOGGLE_TYPE.text,
@@ -54,7 +54,7 @@ export const argTypes: ArgTypes = {
         },
         control: {
             type: 'select',
-            options: COLLAPSIBLE_TOGGLE_TYPE,
+            options: Object.values(COLLAPSIBLE_TOGGLE_TYPE),
         },
     },
     /* slot */

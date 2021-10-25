@@ -16,7 +16,7 @@
                 </span>
                 <p-collapsible-toggle v-if="togglePosition === COLLAPSIBLE_LIST_TOGGLE_POSITION.title"
                                       :is-collapsed="!proxyUnfoldedIndices.includes(idx)"
-                                      :type="toggleType"
+                                      :toggle-type="toggleType"
                                       @update:isCollapsed="onUpdateCollapsed(idx, ...arguments)"
                 />
             </p>

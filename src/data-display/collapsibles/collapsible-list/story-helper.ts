@@ -118,7 +118,7 @@ export const argTypes: ArgTypes = {
         },
         control: {
             type: 'select',
-            options: COLLAPSIBLE_TOGGLE_TYPE,
+            options: Object.values(COLLAPSIBLE_TOGGLE_TYPE),
         },
     },
     theme: {

@@ -1,6 +1,6 @@
 <template>
     <span class="p-collapsible-toggle">
-        <span v-if="type === COLLAPSIBLE_TOGGLE_TYPE.text" @click="handleToggle">
+        <span v-if="toggleType === COLLAPSIBLE_TOGGLE_TYPE.text" @click="handleToggle">
             <span>
                 <slot :is-collapsed="proxyIsCollapsed">
                     {{ proxyIsCollapsed ? $t('COMPONENT.COLLAPSIBLE_TOGGLE.SHOW_MORE') : $t('COMPONENT.COLLAPSIBLE_TOGGLE.HIDE') }}
@@ -12,7 +12,7 @@
             />
         </span>
         <p-toggle-button
-            v-else-if="type === COLLAPSIBLE_TOGGLE_TYPE.switch"
+            v-else-if="toggleType === COLLAPSIBLE_TOGGLE_TYPE.switch"
             :value="!proxyIsCollapsed"
             :sync="true"
             @change="handleToggle"
@@ -46,7 +46,7 @@ export default defineComponent<CollapsibleToggleProps>({
             type: Boolean,
             default: true,
         },
-        type: {
+        toggleType: {
             type: String,
             default: COLLAPSIBLE_TOGGLE_TYPE.text,
             validator(type: any) {
