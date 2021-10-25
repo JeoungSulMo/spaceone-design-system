@@ -26,13 +26,7 @@ import color from '@/styles/colors';
  * https://www.npmjs.com/package/vue-js-toggle-button
  */
 
-interface Props {
-    sync: boolean;
-    value: boolean;
-    theme: string;
-}
-
-export default defineComponent<Props>({
+export default defineComponent<ToggleButtonProps>({
     name: 'PToggleButton',
     components: {
         ToggleButton,
