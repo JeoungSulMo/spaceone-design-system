@@ -247,8 +247,8 @@ export const getTextInputArgTypes = (): ArgTypes => {
                 type: 'boolean',
             },
         },
-        passwordVisibilityMode: {
-            name: 'passwordVisibilityMode',
+        visibleInputMasking: {
+            name: 'visibleInputMasking',
             type: { name: 'boolean' },
             description: 'Use this prop when you want to control show/hide button of password input.',
             defaultValue: false,

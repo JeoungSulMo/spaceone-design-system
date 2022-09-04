@@ -43,14 +43,14 @@
                     {{ value }}
                 </slot>
             </span>
-            <p-button v-if="(initialInputType === 'password') && passwordVisibilityMode"
+            <p-button v-if="($attrs.type === 'password') && visibleInputMasking"
                       size="sm"
                       style-type="transparent"
                       font-weight="normal"
                       :disabled="disabled"
                       @click.stop.prevent="handleTogglePassword"
             >
-                {{ isPasswordVisible ? $t('COMPONENT.TEXT_INPUT.HIDE') : $t('COMPONENT.TEXT_INPUT.SHOW') }}
+                {{ !maskingMode ? $t('COMPONENT.TEXT_INPUT.HIDE') : $t('COMPONENT.TEXT_INPUT.SHOW') }}
             </p-button>
             <p-i v-else
                  v-show="(isFocused || isInvalid)"
@@ -109,7 +109,7 @@ interface TextInputProps {
     disableHandler: boolean;
     exactMode: boolean;
     useAutoComplete: boolean;
-    passwordVisibilityMode: boolean;
+    visibleInputMasking: boolean;
 }
 
 export default defineComponent<TextInputProps>({
@@ -192,7 +192,7 @@ export default defineComponent<TextInputProps>({
             type: Boolean,
             default: false,
         },
-        passwordVisibilityMode: {
+        visibleInputMasking: {
             type: Boolean,
             default: false,
         },
@@ -213,9 +213,14 @@ export default defineComponent<TextInputProps>({
             menuRef: null,
             targetRef: null,
             isFocused: false,
-            initialInputType: attrs.type,
-            inputType: useProxyValue('type', attrs, emit),
-            isPasswordVisible: computed(() => state.inputType !== 'password'),
+            maskingMode: true,
+            inputType: computed(() => {
+                if (props.visibleInputMasking) {
+                    if (attrs.type === 'password') return state.maskingMode ? 'password' : 'text';
+                    return attrs.type;
+                }
+                return attrs.type;
+            }),
             proxyValue: useProxyValue('value', props, emit),
             proxySelectedValue: useProxyValue('selected', props, emit),
             deleteTarget: undefined as string | undefined,
@@ -303,7 +308,7 @@ export default defineComponent<TextInputProps>({
         };
 
         const handleTogglePassword = () => {
-            state.inputType = state.isPasswordVisible ? 'password' : 'text';
+            state.maskingMode = !state.maskingMode;
         };
 
         const deleteSelectedTags = () => {
@@ -365,6 +370,9 @@ export default defineComponent<TextInputProps>({
         watch(() => props.menu, (menu) => {
             state.filteredMenu = menu;
             filterMenu(state.proxyValue);
+        });
+        watch(() => props.visibleInputMasking, (visibleInputMasking) => {
+            if (visibleInputMasking) state.maskingMode = true;
         });
 
         const init = () => {
